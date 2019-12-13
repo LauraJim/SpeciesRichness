@@ -35,20 +35,19 @@ for(k in binsize){
   for(j in 1:nsim){
     repmatrix=matrix(nrow=(nsp+nerr),ncol=k)
     for(i in 1:(nsp+nerr))
-      # abundance matrix
+      # abundance matrix is filled with simulated data from Poisson distributions with given mean abundances
       repmatrix[i,]=rpois(k,lams[i])
-    # generate incidence matrix
-    repmatrix <- (repmatrix>0)*1
-    if(j==1){
-      # Design the format of input files for EstimateS
+      # convert to incidence matrix
+      repmatrix <- (repmatrix>0)*1
+      if(j==1){
+      # use the format of input files for EstimateS
       cat("*MultipleSampleSets*\t", nsim, "\t", paste0(k, "_days"), "\n", file = input_file, sep = "")}
-    
-    cat(paste("rep", j, sep = " "), "\t*SampleSet*\t", "1\t", "0\t", "0\n", file = input_file, sep = "")
-    cat(nsp+nerr, "\t", k, "\n", file = input_file, sep = "")
-    write.table(repmatrix,file=input_file, sep = "\t",
-                row.names=F, col.names=F, append = T)
+      cat(paste("rep", j, sep = " "), "\t*SampleSet*\t", "1\t", "0\t", "0\n", file = input_file, sep = "")
+      cat(nsp+nerr, "\t", k, "\n", file = input_file, sep = "")
+      write.table(repmatrix,file=input_file, sep = "\t",row.names=F, col.names=F, append = T)
   }
   flush(input_file)
   close(input_file)
 }
 
+# END
