@@ -1,7 +1,5 @@
 # Code for calculating the adjusted Chao estimator for species richness (according to Chiu and Chao, 2016)
-# Here we use simulated incidence data and the package 'breakaway'
 
-# Function 1 --------------
 # Function to calculate Chao adjusted estimator from simulated incidence data
 adjChao <- function(file1,nrep){
   # read the data
@@ -61,7 +59,6 @@ adjChao <- function(file1,nrep){
         ChaoEst <- Sobs + (Q1*(Q1-1)*(nd-1))/(2*nd)
       }
     }
-    #estimate <- breakaway_nof1(smpl.freqs1,answers = T,plot=F,print=F)
     chaos[i,] <- c(adj,ChaoEst)
   }
   return(chaos)
